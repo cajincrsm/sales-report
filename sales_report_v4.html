@@ -430,7 +430,7 @@ function renderOutputV2(byTeam) {
   TEAMS.forEach(t => { if (byTeam[t]) { tIn+=+byTeam[t].inSales; tRem+=+byTeam[t].remainSales; tExp+=+byTeam[t].expected; }});
   const r5 = v => Math.round(v / 5) * 5;
   document.getElementById('output-v2').textContent =
-    `컴퓨터강남 (${dashSession})\n${fmt(r5(tIn))} / ${fmt(r5(tRem))} / ${fmt(r5(tExp))}`;
+    `컴퓨터강남 (${dashSession})\n${fmt(r5(tIn))} / ${fmt(r5(tRem))} / ${fmt(r5(tExp))}\n${tDone}/${tTmr}/${tDat}`;
 }
 
 function renderTeamDetails(byTeam) {
