@@ -2,120 +2,505 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>컴퓨터강남 매출보고</title>
-<link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root {
-  --primary: #1a56db; --primary-light: #e8f0fe; --primary-dark: #1341b0;
-  --success: #0e9f6e; --success-light: #e8f8f3;
-  --danger: #e02424; --danger-light: #fde8e8;
-  --warning: #d97706; --warning-light: #fffbeb;
-  --gray-50: #f9fafb; --gray-100: #f3f4f6; --gray-200: #e5e7eb;
-  --gray-300: #d1d5db; --gray-400: #9ca3af; --gray-500: #6b7280;
-  --gray-700: #374151; --gray-800: #1f2937;
-  --radius: 12px; --radius-sm: 8px; --shadow: 0 1px 3px rgba(0,0,0,0.1);
+  --primary: #2563eb;
+  --primary-light: #dbeafe;
+  --primary-dark: #1d4ed8;
+  --primary-muted: #eff6ff;
+  --success: #059669;
+  --success-light: #d1fae5;
+  --danger: #dc2626;
+  --danger-light: #fee2e2;
+  --warning: #d97706;
+  --warning-light: #fef3c7;
+  --gray-50: #f8fafc;
+  --gray-100: #f1f5f9;
+  --gray-200: #e2e8f0;
+  --gray-300: #cbd5e1;
+  --gray-400: #94a3b8;
+  --gray-500: #64748b;
+  --gray-600: #475569;
+  --gray-700: #334155;
+  --gray-800: #1e293b;
+  --gray-900: #0f172a;
+  --radius: 14px;
+  --radius-sm: 10px;
+  --radius-xs: 6px;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.06);
+  --shadow: 0 2px 8px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.1);
 }
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-body { font-family: 'Pretendard', -apple-system, sans-serif; background: var(--gray-100); color: var(--gray-800); min-height: 100vh; font-size: 14px; }
-.header { background: var(--primary); color: white; padding: 16px 20px; position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 8px rgba(26,86,219,0.3); }
-.header-title { font-size: 17px; font-weight: 700; }
-.header-sub { font-size: 11px; opacity: 0.8; margin-top: 2px; }
-.tab-btn { padding: 6px 14px; border-radius: 20px; border: 1.5px solid rgba(255,255,255,0.4); background: transparent; color: rgba(255,255,255,0.8); font-size: 12px; font-weight: 600; cursor: pointer; font-family: inherit; transition: all 0.2s; }
-.tab-btn.active { background: white; color: var(--primary); border-color: white; }
-.main { padding: 16px; max-width: 600px; margin: 0 auto; }
-.card { background: white; border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px; margin-bottom: 12px; }
-.card-title { font-size: 13px; font-weight: 700; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 14px; display: flex; align-items: center; gap: 6px; }
-.card-title::before { content: ''; display: block; width: 3px; height: 14px; background: var(--primary); border-radius: 2px; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--gray-100);
+  color: var(--gray-800);
+  min-height: 100vh;
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── 헤더 ── */
+.header {
+  background: linear-gradient(135deg, #1e40af 0%, #2563eb 60%, #3b82f6 100%);
+  color: white;
+  padding: 14px 16px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 12px rgba(37,99,235,0.35);
+}
+.header-title { font-size: 16px; font-weight: 800; letter-spacing: -0.3px; }
+.header-sub { font-size: 11px; opacity: 0.75; margin-top: 2px; font-weight: 400; }
+.tab-group { display: flex; gap: 6px; background: rgba(255,255,255,0.15); padding: 3px; border-radius: 24px; }
+.tab-btn {
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: none;
+  background: transparent;
+  color: rgba(255,255,255,0.75);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+  letter-spacing: -0.2px;
+}
+.tab-btn.active { background: white; color: var(--primary); }
+
+/* ── 메인 ── */
+.main { padding: 14px; max-width: 600px; margin: 0 auto; padding-bottom: 32px; }
+
+/* ── 카드 ── */
+.card {
+  background: white;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 18px;
+  margin-bottom: 10px;
+}
+.card-title {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--gray-500);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.card-title::before {
+  content: '';
+  display: block;
+  width: 3px;
+  height: 13px;
+  background: var(--primary);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+/* ── 폼 ── */
 .form-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 8px; }
-.field { display: flex; flex-direction: column; gap: 4px; }
-.field label { font-size: 11px; font-weight: 600; color: var(--gray-500); }
-.field input, .field select, .field textarea { padding: 10px 12px; border: 1.5px solid var(--gray-200); border-radius: var(--radius-sm); font-size: 15px; font-family: inherit; color: var(--gray-800); background: var(--gray-50); outline: none; transition: border-color 0.2s; width: 100%; -webkit-appearance: none; }
-.field input:focus, .field select:focus, .field textarea:focus { border-color: var(--primary); background: white; box-shadow: 0 0 0 3px rgba(26,86,219,0.08); }
-.field input[type="number"] { text-align: center; font-weight: 700; font-size: 18px; }
-.field textarea { resize: vertical; min-height: 100px; font-size: 13px; line-height: 1.6; }
-.auto-tag { font-size: 10px; background: var(--primary-light); color: var(--primary); padding: 1px 5px; border-radius: 4px; font-weight: 600; }
+.field { display: flex; flex-direction: column; gap: 5px; }
+.field label { font-size: 11px; font-weight: 700; color: var(--gray-500); letter-spacing: 0.2px; }
+.field input, .field select, .field textarea {
+  padding: 11px 12px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  font-family: inherit;
+  color: var(--gray-800);
+  background: var(--gray-50);
+  outline: none;
+  transition: all 0.18s;
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.field input:focus, .field select:focus, .field textarea:focus {
+  border-color: var(--primary);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.09);
+}
+.field input[type="number"] { text-align: center; font-weight: 800; font-size: 18px; }
+.field textarea { resize: vertical; min-height: 96px; font-size: 13px; line-height: 1.7; }
+.auto-tag {
+  font-size: 9px;
+  background: var(--primary-light);
+  color: var(--primary);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+
+/* ── 세션 선택 ── */
 .session-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.session-btn { padding: 14px; border: 2px solid var(--gray-200); border-radius: var(--radius-sm); background: var(--gray-50); cursor: pointer; text-align: center; font-family: inherit; font-size: 16px; font-weight: 700; color: var(--gray-500); transition: all 0.2s; }
-.session-btn.active { border-color: var(--primary); background: var(--primary-light); color: var(--primary); }
+.session-btn {
+  padding: 14px 10px;
+  border: 2px solid var(--gray-200);
+  border-radius: var(--radius-sm);
+  background: var(--gray-50);
+  cursor: pointer;
+  text-align: center;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--gray-400);
+  transition: all 0.18s;
+  letter-spacing: -0.3px;
+}
+.session-btn.active {
+  border-color: var(--primary);
+  background: var(--primary-muted);
+  color: var(--primary);
+}
 .session-btn .session-sub { display: block; font-size: 11px; font-weight: 400; margin-top: 3px; opacity: 0.7; }
-.btn-submit { width: 100%; padding: 16px; background: var(--primary); color: white; border: none; border-radius: var(--radius); font-size: 16px; font-weight: 700; cursor: pointer; font-family: inherit; transition: all 0.2s; box-shadow: 0 4px 12px rgba(26,86,219,0.3); }
-.btn-submit:hover { background: var(--primary-dark); }
-.btn-submit:disabled { background: var(--gray-300); box-shadow: none; cursor: not-allowed; }
-/* 수정 안내 */
+
+/* ── 제출 버튼 ── */
+.btn-submit {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, var(--primary) 0%, #3b82f6 100%);
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+  box-shadow: 0 4px 14px rgba(37,99,235,0.35);
+  letter-spacing: -0.2px;
+}
+.btn-submit:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(37,99,235,0.4); }
+.btn-submit:active { transform: translateY(0); }
+.btn-submit:disabled { background: var(--gray-300); box-shadow: none; cursor: not-allowed; transform: none; }
+
+/* ── 수정 안내 ── */
 .edit-notice { font-size: 12px; color: var(--gray-400); text-align: center; margin-top: 10px; }
 .edit-notice strong { color: var(--primary); }
-/* 메시지 */
-.success-msg { display: none; background: var(--success-light); border: 1.5px solid var(--success); border-radius: var(--radius); padding: 16px 20px; text-align: center; color: var(--success); font-weight: 600; margin-bottom: 12px; font-size: 15px; }
+
+/* ── 성공 메시지 ── */
+.success-msg {
+  display: none;
+  background: var(--success-light);
+  border: 1.5px solid var(--success);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  text-align: center;
+  color: var(--success);
+  font-weight: 700;
+  margin-bottom: 10px;
+  font-size: 14px;
+  animation: fadeIn 0.3s ease;
+}
 .success-msg.show { display: block; }
-/* 대시보드 */
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ── 대시보드 헤더 ── */
 .dash-header { display: flex; align-items: center; justify-content: space-between; }
-.refresh-info { font-size: 11px; color: var(--gray-400); }
-.btn-refresh { padding: 6px 12px; border: 1.5px solid var(--gray-200); border-radius: 20px; background: white; font-size: 12px; font-weight: 600; color: var(--gray-500); cursor: pointer; font-family: inherit; }
-/* 리셋 버튼 */
-.btn-reset { padding: 6px 12px; border: 1.5px solid #fca5a5; border-radius: 20px; background: white; font-size: 12px; font-weight: 600; color: var(--danger); cursor: pointer; font-family: inherit; }
+.refresh-info { font-size: 11px; color: var(--gray-400); margin-top: 2px; }
+.btn-group { display: flex; gap: 6px; }
+.btn-refresh {
+  padding: 7px 13px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: 20px;
+  background: white;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--gray-500);
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.18s;
+}
+.btn-refresh:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-muted); }
+.btn-reset {
+  padding: 7px 13px;
+  border: 1.5px solid #fca5a5;
+  border-radius: 20px;
+  background: white;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--danger);
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.18s;
+}
 .btn-reset:hover { background: var(--danger-light); }
-/* 리셋 모달 */
-.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200; align-items: center; justify-content: center; padding: 20px; }
+
+/* ── 갱신 실패 배너 ── */
+.error-banner {
+  display: none;
+  background: #fff7ed;
+  border: 1.5px solid #fed7aa;
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-size: 12px;
+  color: var(--warning);
+  font-weight: 600;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.error-banner.hidden { display: none !important; }
+
+/* ── 리셋 모달 ── */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(15,23,42,0.55);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  backdrop-filter: blur(2px);
+}
 .modal-overlay.show { display: flex; }
-.modal { background: white; border-radius: var(--radius); padding: 24px; width: 100%; max-width: 340px; box-shadow: 0 8px 32px rgba(0,0,0,0.2); }
-.modal-title { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
-.modal-desc { font-size: 13px; color: var(--gray-500); margin-bottom: 16px; line-height: 1.5; }
-.modal-input { width: 100%; padding: 10px 14px; border: 1.5px solid var(--gray-200); border-radius: var(--radius-sm); font-size: 18px; font-family: inherit; text-align: center; letter-spacing: 4px; outline: none; margin-bottom: 12px; }
-.modal-input:focus { border-color: var(--danger); box-shadow: 0 0 0 3px rgba(224,36,36,0.1); }
+.modal {
+  background: white;
+  border-radius: var(--radius);
+  padding: 24px;
+  width: 100%;
+  max-width: 320px;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.2);
+}
+.modal-title { font-size: 16px; font-weight: 800; margin-bottom: 6px; color: var(--gray-800); }
+.modal-desc { font-size: 13px; color: var(--gray-500); margin-bottom: 16px; line-height: 1.6; }
+.modal-input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius-sm);
+  font-size: 20px;
+  font-family: inherit;
+  text-align: center;
+  letter-spacing: 6px;
+  outline: none;
+  margin-bottom: 12px;
+  transition: border-color 0.18s;
+}
+.modal-input:focus { border-color: var(--danger); box-shadow: 0 0 0 3px rgba(220,38,38,0.1); }
 .modal-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.modal-btn-cancel { padding: 12px; border: 1.5px solid var(--gray-200); border-radius: var(--radius-sm); background: white; font-family: inherit; font-size: 14px; font-weight: 600; color: var(--gray-500); cursor: pointer; }
-.modal-btn-confirm { padding: 12px; border: none; border-radius: var(--radius-sm); background: var(--danger); font-family: inherit; font-size: 14px; font-weight: 700; color: white; cursor: pointer; }
+.modal-btn-cancel {
+  padding: 12px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius-sm);
+  background: white;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--gray-500);
+  cursor: pointer;
+}
+.modal-btn-confirm {
+  padding: 12px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--danger);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  color: white;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+.modal-btn-confirm:hover { background: #b91c1c; }
 .modal-btn-confirm:disabled { background: var(--gray-300); cursor: not-allowed; }
-/* 팀 그리드 */
-.team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
-.team-chip { padding: 8px 6px; border-radius: var(--radius-sm); text-align: center; font-size: 11px; font-weight: 600; border: 1.5px solid; }
-.team-chip.done { background: var(--success-light); border-color: var(--success); color: var(--success); }
-.team-chip.pending { background: var(--danger-light); border-color: #fca5a5; color: var(--danger); }
+
+/* ── 팀 그리드 ── */
+.team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+@media (max-width: 380px) { .team-grid { grid-template-columns: repeat(3, 1fr); } }
+.team-chip {
+  padding: 9px 6px;
+  border-radius: var(--radius-xs);
+  text-align: center;
+  font-size: 10px;
+  font-weight: 700;
+  border: 1.5px solid;
+  transition: all 0.2s;
+}
+.team-chip.done { background: var(--success-light); border-color: #6ee7b7; color: var(--success); }
+.team-chip.pending { background: var(--gray-50); border-color: var(--gray-200); color: var(--gray-400); }
+.team-chip .chip-icon { font-size: 13px; display: block; margin-bottom: 3px; }
 .team-chip .chip-name { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.progress-wrap { margin-bottom: 12px; }
-.progress-label { display: flex; justify-content: space-between; font-size: 12px; color: var(--gray-500); margin-bottom: 6px; }
-.progress-label span:last-child { font-weight: 700; color: var(--primary); }
-.progress-bar { height: 6px; background: var(--gray-200); border-radius: 10px; overflow: hidden; }
-.progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary), #60a5fa); border-radius: 10px; transition: width 0.5s ease; }
-.summary-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-.summary-table th { background: var(--gray-100); padding: 8px 10px; text-align: center; font-size: 11px; font-weight: 700; color: var(--gray-500); border-bottom: 1px solid var(--gray-200); }
-.summary-table td { padding: 8px 10px; text-align: center; border-bottom: 1px solid var(--gray-100); font-weight: 500; }
-.summary-table .total-row td { background: var(--primary-light); color: var(--primary); font-weight: 700; font-size: 14px; border-top: 2px solid var(--primary); }
-.summary-table .td-left { text-align: left; font-size: 12px; }
-.summary-table .td-num { font-weight: 700; }
+
+/* ── 프로그레스 ── */
+.progress-wrap { margin-bottom: 14px; }
+.progress-label { display: flex; justify-content: space-between; font-size: 12px; color: var(--gray-500); margin-bottom: 7px; font-weight: 600; }
+.progress-label span:last-child { color: var(--primary); font-weight: 800; }
+.progress-bar { height: 7px; background: var(--gray-200); border-radius: 10px; overflow: hidden; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary), #60a5fa); border-radius: 10px; transition: width 0.6s cubic-bezier(0.4,0,0.2,1); }
+
+/* ── 합계 테이블 ── */
+.summary-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.summary-table th {
+  background: var(--gray-100);
+  padding: 8px 8px;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--gray-500);
+  border-bottom: 1.5px solid var(--gray-200);
+  letter-spacing: 0.3px;
+}
+.summary-table td { padding: 8px 8px; text-align: center; border-bottom: 1px solid var(--gray-100); font-weight: 500; }
+.summary-table .total-row td {
+  background: var(--primary-muted);
+  color: var(--primary);
+  font-weight: 800;
+  font-size: 13px;
+  border-top: 2px solid var(--primary-light);
+}
+.summary-table .td-left { text-align: left; font-size: 11px; font-weight: 600; }
+.summary-table .td-num { font-weight: 700; font-variant-numeric: tabular-nums; }
+.summary-table .td-pending { color: var(--gray-300); font-size: 11px; }
+
+/* ── 출력 박스 ── */
 .output-wrap { position: relative; }
-.output-box { background: var(--gray-50); border: 1.5px solid var(--gray-200); border-radius: var(--radius-sm); padding: 14px; font-size: 12px; line-height: 1.8; white-space: pre-wrap; color: var(--gray-700); min-height: 80px; max-height: 300px; overflow-y: auto; }
-.btn-copy { position: absolute; top: 8px; right: 8px; padding: 5px 12px; background: var(--primary); color: white; border: none; border-radius: 6px; font-size: 12px; font-weight: 700; cursor: pointer; font-family: inherit; }
+.output-box {
+  background: var(--gray-50);
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  padding-right: 64px;
+  font-size: 12px;
+  line-height: 1.9;
+  white-space: pre-wrap;
+  color: var(--gray-700);
+  min-height: 80px;
+  max-height: 320px;
+  overflow-y: auto;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+.btn-copy {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 5px 12px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-xs);
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.18s;
+}
+.btn-copy:hover { background: var(--primary-dark); }
 .btn-copy.copied { background: var(--success); }
+
+/* ── 팀별 세부 ── */
 .team-detail-list { display: flex; flex-direction: column; gap: 8px; }
-.team-detail-item { background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-sm); padding: 12px; }
-.team-detail-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-.team-detail-name { font-weight: 700; font-size: 13px; }
-.team-detail-nums { font-size: 12px; color: var(--gray-500); }
-.team-detail-content { font-size: 11px; color: var(--gray-500); white-space: pre-wrap; line-height: 1.6; margin-top: 4px; border-top: 1px solid var(--gray-200); padding-top: 6px; }
-.loading { text-align: center; padding: 30px; color: var(--gray-400); font-size: 13px; }
-.spinner { width: 24px; height: 24px; border: 2px solid var(--gray-200); border-top-color: var(--primary); border-radius: 50%; animation: spin 0.7s linear infinite; margin: 0 auto 8px; }
+.team-detail-item {
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-sm);
+  padding: 13px;
+  transition: all 0.18s;
+}
+.team-detail-item:hover { border-color: var(--gray-300); box-shadow: var(--shadow-sm); }
+.team-detail-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; gap: 8px; }
+.team-detail-name { font-weight: 800; font-size: 13px; color: var(--gray-800); }
+.team-detail-nums { font-size: 11px; color: var(--gray-500); white-space: nowrap; }
+.team-detail-badge { font-size: 10px; font-weight: 700; background: var(--primary-light); color: var(--primary); padding: 2px 7px; border-radius: 4px; }
+.team-detail-content { font-size: 11px; color: var(--gray-600); white-space: pre-wrap; line-height: 1.7; margin-top: 6px; border-top: 1px solid var(--gray-200); padding-top: 7px; }
+
+/* ── 차트 섹션 ── */
+.chart-container { position: relative; width: 100%; }
+.chart-bar-list { display: flex; flex-direction: column; gap: 7px; }
+.chart-bar-item { display: flex; align-items: center; gap: 8px; }
+.chart-bar-label { font-size: 10px; font-weight: 700; color: var(--gray-600); width: 44px; flex-shrink: 0; text-align: right; }
+.chart-bar-track { flex: 1; height: 20px; background: var(--gray-100); border-radius: 6px; overflow: hidden; position: relative; }
+.chart-bar-fill {
+  height: 100%;
+  border-radius: 6px;
+  transition: width 0.7s cubic-bezier(0.4,0,0.2,1);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 6px;
+  min-width: 0;
+  position: relative;
+}
+.chart-bar-val { font-size: 10px; font-weight: 700; color: white; white-space: nowrap; }
+.chart-bar-val-out { font-size: 10px; font-weight: 700; color: var(--gray-500); padding-left: 5px; white-space: nowrap; }
+.chart-tab-row { display: flex; gap: 6px; margin-bottom: 14px; }
+.chart-tab {
+  padding: 5px 12px;
+  border-radius: 20px;
+  border: 1.5px solid var(--gray-200);
+  background: white;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gray-500);
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.18s;
+}
+.chart-tab.active { border-color: var(--primary); background: var(--primary-muted); color: var(--primary); }
+.chart-legend { display: flex; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
+.legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--gray-500); font-weight: 600; }
+.legend-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+
+/* ── 로딩 ── */
+.loading { text-align: center; padding: 28px; color: var(--gray-400); font-size: 13px; }
+.spinner {
+  width: 22px; height: 22px;
+  border: 2px solid var(--gray-200);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  margin: 0 auto 8px;
+}
 @keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── 화면 전환 ── */
 #screen-input { display: block; }
 #screen-dash { display: none; }
-@media (max-width: 400px) { .main { padding: 12px; } .card { padding: 16px; } }
+
+/* ── 반응형 ── */
+@media (max-width: 400px) {
+  .main { padding: 10px; }
+  .card { padding: 14px; }
+  .form-row { gap: 6px; }
+  .field input[type="number"] { font-size: 16px; }
+  .summary-table th, .summary-table td { padding: 7px 5px; font-size: 11px; }
+}
+@media (max-width: 340px) {
+  .header-title { font-size: 14px; }
+  .tab-btn { padding: 5px 10px; font-size: 11px; }
+}
 </style>
 </head>
 <body>
 
+<!-- ── 헤더 ── -->
 <div class="header">
   <div>
     <div class="header-title">📊 컴퓨터강남 매출보고</div>
     <div class="header-sub" id="header-sub">날짜 로딩 중...</div>
   </div>
-  <div style="display:flex;gap:8px;">
+  <div class="tab-group">
     <button class="tab-btn active" id="tab-input" onclick="showScreen('input')">입력</button>
     <button class="tab-btn" id="tab-dash" onclick="showScreen('dash')">취합</button>
   </div>
 </div>
 
-<!-- ═══ 입력 화면 ═══ -->
+<!-- ══════════ 입력 화면 ══════════ -->
 <div id="screen-input">
   <div class="main">
     <div class="success-msg" id="success-msg">✅ 제출 완료! 취합 담당자 화면에 반영됐어요.</div>
@@ -133,16 +518,16 @@ body { font-family: 'Pretendard', -apple-system, sans-serif; background: var(--g
     </div>
 
     <div class="card">
-      <div class="card-title">매출 입력 (단위: 만원)</div>
+      <div class="card-title">매출 입력 <span style="font-size:10px;color:var(--gray-400);font-weight:400;text-transform:none;letter-spacing:0;">(단위: 만원)</span></div>
       <div class="form-row">
         <div class="field"><label>들어온매출</label><input type="number" id="f-in" placeholder="0" min="0" inputmode="numeric"></div>
         <div class="field"><label>금일남은매출</label><input type="number" id="f-remain" placeholder="0" min="0" inputmode="numeric"></div>
-        <div class="field"><label>완료예상 <span class="auto-tag">자동</span></label><input type="number" id="f-expected" placeholder="0" readonly style="background:#f0f4ff;color:var(--primary);"></div>
+        <div class="field"><label>완료예상 <span class="auto-tag">자동</span></label><input type="number" id="f-expected" placeholder="0" readonly style="background:#eff6ff;color:var(--primary);font-weight:800;"></div>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-title">상담 현황 (단위: 건)</div>
+      <div class="card-title">상담 현황 <span style="font-size:10px;color:var(--gray-400);font-weight:400;text-transform:none;letter-spacing:0;">(단위: 건)</span></div>
       <div class="form-row">
         <div class="field"><label>상담완료수</label><input type="number" id="f-done" placeholder="0" min="0" inputmode="numeric"></div>
         <div class="field"><label>내일상담수</label><input type="number" id="f-tmr" placeholder="0" min="0" inputmode="numeric"></div>
@@ -159,28 +544,31 @@ body { font-family: 'Pretendard', -apple-system, sans-serif; background: var(--g
     </div>
 
     <button class="btn-submit" id="btn-submit" onclick="submitData()">📤 매출 보고 제출</button>
-    <!-- ★ 수정 안내 -->
     <p class="edit-notice">수정이 필요하면 <strong>같은 팀·같은 회차</strong>로 다시 제출하면 자동으로 덮어씌워져요.</p>
   </div>
 </div>
 
-<!-- ═══ 취합 화면 ═══ -->
+<!-- ══════════ 취합 화면 ══════════ -->
 <div id="screen-dash">
   <div class="main">
-    <div class="card" style="padding:14px 16px;">
+
+    <!-- 상태바 카드 -->
+    <div class="card" style="padding:13px 16px;">
       <div class="dash-header">
         <div>
-          <div style="font-weight:700;font-size:15px;">📋 취합 현황</div>
+          <div style="font-weight:800;font-size:15px;">📋 취합 현황</div>
           <div class="refresh-info" id="refresh-info">로딩 중...</div>
         </div>
-        <div style="display:flex;gap:6px;">
+        <div class="btn-group">
           <button class="btn-refresh" onclick="loadDashboard()">🔄 새로고침</button>
-          <!-- ★ 리셋 버튼 -->
           <button class="btn-reset" onclick="openResetModal()">🗑️ 리셋</button>
         </div>
       </div>
+      <!-- 갱신 실패 배너 -->
+      <div class="error-banner hidden" id="error-banner">⚠️ 갱신 실패 — 네트워크를 확인해주세요. 10초 후 재시도합니다.</div>
     </div>
 
+    <!-- 회차 선택 -->
     <div class="card">
       <div class="card-title">보고 회차</div>
       <div class="session-selector">
@@ -189,23 +577,54 @@ body { font-family: 'Pretendard', -apple-system, sans-serif; background: var(--g
       </div>
     </div>
 
+    <!-- 팀별 현황 -->
     <div class="card">
       <div class="card-title">팀별 입력 현황</div>
       <div class="progress-wrap">
-        <div class="progress-label"><span>입력 완료</span><span id="progress-text">0 / 11</span></div>
+        <div class="progress-label">
+          <span>입력 완료</span>
+          <span id="progress-text">0 / 11</span>
+        </div>
         <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
       </div>
       <div class="team-grid" id="team-status-grid"></div>
     </div>
 
+    <!-- 합계 테이블 -->
     <div class="card">
       <div class="card-title">합계 요약</div>
-      <table class="summary-table">
-        <thead><tr><th style="text-align:left">팀명</th><th>들어온</th><th>남은</th><th>완료예상</th><th>완/내/모</th></tr></thead>
-        <tbody id="summary-tbody"><tr><td colspan="5" class="loading"><div class="spinner"></div>로딩 중...</td></tr></tbody>
-      </table>
+      <div style="overflow-x:auto;">
+        <table class="summary-table">
+          <thead>
+            <tr>
+              <th style="text-align:left">팀명</th>
+              <th>들어온</th>
+              <th>남은</th>
+              <th>완료예상</th>
+              <th>완/내/모</th>
+            </tr>
+          </thead>
+          <tbody id="summary-tbody">
+            <tr><td colspan="5" class="loading"><div class="spinner"></div>로딩 중...</td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
+    <!-- ★ 차트 섹션 -->
+    <div class="card">
+      <div class="card-title">팀별 차트</div>
+      <div class="chart-tab-row">
+        <button class="chart-tab active" id="ctab-expected" onclick="setChartMode('expected')">완료예상</button>
+        <button class="chart-tab" id="ctab-in" onclick="setChartMode('in')">들어온매출</button>
+        <button class="chart-tab" id="ctab-consult" onclick="setChartMode('consult')">상담완료</button>
+      </div>
+      <div class="chart-bar-list" id="chart-bars">
+        <div class="loading" style="padding:16px;"><div class="spinner"></div>데이터 없음</div>
+      </div>
+    </div>
+
+    <!-- 버전1 -->
     <div class="card">
       <div class="card-title">버전 1 — 전체 상세</div>
       <div class="output-wrap">
@@ -214,6 +633,7 @@ body { font-family: 'Pretendard', -apple-system, sans-serif; background: var(--g
       </div>
     </div>
 
+    <!-- 버전2 -->
     <div class="card">
       <div class="card-title">버전 2 — 합계 요약 <span style="font-size:10px;color:var(--gray-400);font-weight:400;">(5만원 단위 반올림)</span></div>
       <div class="output-wrap">
@@ -222,18 +642,22 @@ body { font-family: 'Pretendard', -apple-system, sans-serif; background: var(--g
       </div>
     </div>
 
+    <!-- 팀별 세부 -->
     <div class="card">
       <div class="card-title">팀별 세부 내용</div>
-      <div class="team-detail-list" id="team-detail-list"><div class="loading"><div class="spinner"></div>로딩 중...</div></div>
+      <div class="team-detail-list" id="team-detail-list">
+        <div class="loading"><div class="spinner"></div>로딩 중...</div>
+      </div>
     </div>
+
   </div>
 </div>
 
-<!-- ★ 리셋 모달 -->
+<!-- ── 리셋 모달 ── -->
 <div class="modal-overlay" id="reset-modal">
   <div class="modal">
     <div class="modal-title">🗑️ 데이터 리셋</div>
-    <div class="modal-desc" id="reset-modal-desc">오늘 <strong id="reset-session-label"></strong> 데이터를 전부 삭제합니다.<br>비밀번호를 입력하세요.</div>
+    <div class="modal-desc">오늘 <strong id="reset-session-label"></strong> 데이터를 전부 삭제합니다.<br>비밀번호를 입력하세요.</div>
     <input class="modal-input" type="password" id="reset-pw" inputmode="numeric" placeholder="••••" maxlength="10">
     <div class="modal-btns">
       <button class="modal-btn-cancel" onclick="closeResetModal()">취소</button>
@@ -243,10 +667,11 @@ body { font-family: 'Pretendard', -apple-system, sans-serif; background: var(--g
 </div>
 
 <script>
-// ══════════════════════
+// ══════════════════════════════════
 // ⚙️ 설정
-// ══════════════════════
+// ══════════════════════════════════
 const GAS_URL = 'https://script.google.com/macros/s/AKfycbzdIjcPnYRdWQpNpCawxlyXcg6D14UhqLMT5QIGwi1GyvAupygEWU8-U-nCtS04MLZn/exec';
+
 const TEAMS = [
   '1-1팀(변상돈 부장)','1-2팀(천현정 팀장)','1-3팀(김장현 팀장)',
   '2-1팀(이윤서 부장)','2-2팀(최석헌 팀장)','2-3팀(신철용 팀장)',
@@ -254,26 +679,40 @@ const TEAMS = [
   '4-1팀(이광현 부장)','4-2팀(주재규 팀장)',
 ];
 
+// 팀별 차트 색상
+const TEAM_COLORS = [
+  '#2563eb','#3b82f6','#60a5fa',
+  '#059669','#10b981','#34d399',
+  '#d97706','#f59e0b','#fbbf24',
+  '#dc2626','#ef4444',
+];
+
 let currentSession = '1차';
 let dashSession = '1차';
 let dashData = [];
 let autoRefreshTimer = null;
+let chartMode = 'expected'; // 'expected' | 'in' | 'consult'
 
 // ── 초기화 ──
 window.onload = function() {
+  // 팀 select 채우기
   const sel = document.getElementById('team-select');
   TEAMS.forEach(t => {
     const o = document.createElement('option');
     o.value = o.textContent = t;
     sel.appendChild(o);
   });
+
+  // 날짜 표시
   const now = new Date();
   const days = ['일','월','화','수','목','금','토'];
   document.getElementById('header-sub').textContent =
     `${now.getFullYear()}.${pad(now.getMonth()+1)}.${pad(now.getDate())} (${days[now.getDay()]})`;
+
   setSession('1차');
   setDashSession('1차');
   renderTeamGrid();
+
   document.getElementById('f-in').addEventListener('input', calcExpected);
   document.getElementById('f-remain').addEventListener('input', calcExpected);
 };
@@ -287,8 +726,8 @@ function calcExpected() {
 function renderTeamGrid() {
   document.getElementById('team-status-grid').innerHTML = TEAMS.map(t =>
     `<div class="team-chip pending" id="chip-${CSS.escape(t)}">
-      <div style="font-size:14px">⏳</div>
-      <div class="chip-name">${t.split('(')[0]}</div>
+      <span class="chip-icon">⏳</span>
+      <span class="chip-name">${t.split('(')[0]}</span>
     </div>`
   ).join('');
 }
@@ -296,10 +735,11 @@ function renderTeamGrid() {
 // ── 화면 전환 ──
 function showScreen(s) {
   document.getElementById('screen-input').style.display = s === 'input' ? 'block' : 'none';
-  document.getElementById('screen-dash').style.display = s === 'dash' ? 'block' : 'none';
+  document.getElementById('screen-dash').style.display  = s === 'dash'  ? 'block' : 'none';
   document.getElementById('tab-input').classList.toggle('active', s === 'input');
   document.getElementById('tab-dash').classList.toggle('active', s === 'dash');
-  if (s === 'dash') { loadDashboard(); startAutoRefresh(); } else stopAutoRefresh();
+  if (s === 'dash') { loadDashboard(); startAutoRefresh(); }
+  else stopAutoRefresh();
 }
 
 // ── 세션 선택 ──
@@ -320,101 +760,218 @@ async function submitData() {
   const team = document.getElementById('team-select').value;
   if (!team) { alert('팀을 선택해주세요.'); return; }
   if (!currentSession) { alert('1차 또는 2차를 선택해주세요.'); return; }
+
   const payload = {
-    action: 'submit', date: getTodayStr(), session: currentSession, team,
-    inSales: parseInt(document.getElementById('f-in').value) || 0,
+    action: 'submit',
+    date: getTodayStr(),
+    session: currentSession,
+    team,
+    inSales:     parseInt(document.getElementById('f-in').value)     || 0,
     remainSales: parseInt(document.getElementById('f-remain').value) || 0,
-    expected: parseInt(document.getElementById('f-expected').value) || 0,
+    expected:    parseInt(document.getElementById('f-expected').value)|| 0,
     done: parseInt(document.getElementById('f-done').value) || 0,
-    tmr: parseInt(document.getElementById('f-tmr').value) || 0,
-    dat: parseInt(document.getElementById('f-dat').value) || 0,
+    tmr:  parseInt(document.getElementById('f-tmr').value)  || 0,
+    dat:  parseInt(document.getElementById('f-dat').value)  || 0,
     detail: document.getElementById('f-detail').value.trim(),
     timestamp: new Date().toISOString(),
   };
+
   const btn = document.getElementById('btn-submit');
   btn.disabled = true; btn.textContent = '전송 중...';
+
   try {
-    const res = await fetch(`${GAS_URL}?data=${encodeURIComponent(JSON.stringify(payload))}`);
+    const res  = await fetch(`${GAS_URL}?data=${encodeURIComponent(JSON.stringify(payload))}`);
     const json = await res.json();
     if (json.status === 'ok') {
       document.getElementById('success-msg').classList.add('show');
       setTimeout(() => document.getElementById('success-msg').classList.remove('show'), 4000);
-    } else { alert('오류: ' + (json.message || '알 수 없는 오류')); }
-  } catch(e) { alert('전송 실패. 네트워크를 확인해주세요.\n' + e.message); }
-  finally { btn.disabled = false; btn.textContent = '📤 매출 보고 제출'; }
+    } else {
+      alert('오류: ' + (json.message || '알 수 없는 오류'));
+    }
+  } catch(e) {
+    alert('전송 실패. 네트워크를 확인해주세요.\n' + e.message);
+  } finally {
+    btn.disabled = false; btn.textContent = '📤 매출 보고 제출';
+  }
 }
 
-// ── 대시보드 로드 ──
+// ══════════════════════════════════
+// 🗂️ 대시보드
+// ══════════════════════════════════
 async function loadDashboard() {
   document.getElementById('refresh-info').textContent = '새로고침 중...';
+  const banner = document.getElementById('error-banner');
+
   try {
-    const res = await fetch(`${GAS_URL}?action=getData&date=${getTodayStr()}`);
+    const res  = await fetch(`${GAS_URL}?action=getData&date=${getTodayStr()}`);
     const json = await res.json();
+
     dashData = (json.data || []).map(d => ({
       ...d,
-      date: String(d.date || '').trim().substring(0, 10),
+      date:    String(d.date    || '').trim().substring(0, 10),
       session: String(d.session || '').trim(),
-      team: String(d.team || '').trim(),
+      team:    String(d.team    || '').trim(),
     }));
+
     renderDashboard();
-    document.getElementById('refresh-info').textContent = `마지막 갱신: ${new Date().toLocaleTimeString('ko-KR')}`;
+    banner.classList.add('hidden');
+    document.getElementById('refresh-info').textContent =
+      `마지막 갱신: ${new Date().toLocaleTimeString('ko-KR')} · 10초 자동갱신`;
+
   } catch(e) {
-    document.getElementById('refresh-info').textContent = '갱신 실패 — 네트워크 확인';
+    banner.classList.remove('hidden');
+    document.getElementById('refresh-info').textContent = '갱신 실패';
   }
 }
 
 function renderDashboard() {
-  const today = getTodayStr();
+  const today    = getTodayStr();
   const filtered = dashData.filter(d => d.date === today && d.session === dashSession);
-  const byTeam = {};
+  const byTeam   = {};
   filtered.forEach(d => { byTeam[d.team] = d; });
+
   renderTeamStatus(byTeam);
   renderSummaryTable(byTeam);
+  renderChart(byTeam);
   renderOutputV1(byTeam);
-  renderOutputV2(byTeam);
+  renderOutputV2(byTeam); // ✅ 버그 수정됨
   renderTeamDetails(byTeam);
 }
 
+// ── 팀 현황 칩 ──
 function renderTeamStatus(byTeam) {
   const done = TEAMS.filter(t => byTeam[t]).length;
   document.getElementById('progress-text').textContent = `${done} / ${TEAMS.length}`;
-  document.getElementById('progress-fill').style.width = `${Math.round(done / TEAMS.length * 100)}%`;
+  document.getElementById('progress-fill').style.width  = `${Math.round(done / TEAMS.length * 100)}%`;
+
   TEAMS.forEach(t => {
-    const el = document.getElementById(`chip-${CSS.escape(t)}`);
+    const el    = document.getElementById(`chip-${CSS.escape(t)}`);
     if (!el) return;
     const short = t.split('(')[0];
     if (byTeam[t]) {
       el.className = 'team-chip done';
-      el.innerHTML = `<div style="font-size:14px">✅</div><div class="chip-name">${short}</div>`;
+      el.innerHTML = `<span class="chip-icon">✅</span><span class="chip-name">${short}</span>`;
     } else {
       el.className = 'team-chip pending';
-      el.innerHTML = `<div style="font-size:14px">⏳</div><div class="chip-name">${short}</div>`;
+      el.innerHTML = `<span class="chip-icon">⏳</span><span class="chip-name">${short}</span>`;
     }
   });
 }
 
+// ── 합계 테이블 ──
 function renderSummaryTable(byTeam) {
-  let tIn=0,tRem=0,tExp=0,tDone=0,tTmr=0,tDat=0;
+  let tIn=0, tRem=0, tExp=0, tDone=0, tTmr=0, tDat=0;
+
   const rows = TEAMS.map(t => {
     const d = byTeam[t];
-    if (!d) return `<tr><td class="td-left" style="color:var(--gray-400)">${t.split('(')[0]}</td><td colspan="4" style="color:var(--gray-300);font-size:11px;">미입력</td></tr>`;
-    tIn+=+d.inSales; tRem+=+d.remainSales; tExp+=+d.expected; tDone+=+d.done; tTmr+=+d.tmr; tDat+=+d.dat;
+    if (!d) return `<tr>
+      <td class="td-left" style="color:var(--gray-400)">${t.split('(')[0]}</td>
+      <td colspan="4" class="td-pending">미입력</td>
+    </tr>`;
+    tIn   += +d.inSales;
+    tRem  += +d.remainSales;
+    tExp  += +d.expected;
+    tDone += +d.done;
+    tTmr  += +d.tmr;
+    tDat  += +d.dat;
     return `<tr>
       <td class="td-left">${t.split('(')[0]}</td>
       <td class="td-num">${fmt(d.inSales)}</td>
       <td class="td-num">${fmt(d.remainSales)}</td>
       <td class="td-num">${fmt(d.expected)}</td>
-      <td class="td-num">${d.done}/${d.tmr}/${d.dat}</td>
+      <td class="td-num" style="font-size:11px;">${d.done}/${d.tmr}/${d.dat}</td>
     </tr>`;
   }).join('');
+
   document.getElementById('summary-tbody').innerHTML = rows +
-    `<tr class="total-row"><td class="td-left">합 계</td><td>${fmt(tIn)}</td><td>${fmt(tRem)}</td><td>${fmt(tExp)}</td><td>${tDone}/${tTmr}/${tDat}</td></tr>`;
+    `<tr class="total-row">
+      <td class="td-left">합 계</td>
+      <td>${fmt(tIn)}</td><td>${fmt(tRem)}</td><td>${fmt(tExp)}</td>
+      <td style="font-size:12px;">${tDone}/${tTmr}/${tDat}</td>
+    </tr>`;
 }
 
+// ══════════════════════════════════
+// 📊 차트 렌더링 (★ 신규)
+// ══════════════════════════════════
+function setChartMode(mode) {
+  chartMode = mode;
+  ['expected','in','consult'].forEach(m => {
+    document.getElementById(`ctab-${m}`).classList.toggle('active', m === mode);
+  });
+  const today    = getTodayStr();
+  const filtered = dashData.filter(d => d.date === today && d.session === dashSession);
+  const byTeam   = {};
+  filtered.forEach(d => { byTeam[d.team] = d; });
+  renderChart(byTeam);
+}
+
+function renderChart(byTeam) {
+  const container = document.getElementById('chart-bars');
+
+  // 데이터가 아예 없으면 안내
+  const hasAny = TEAMS.some(t => byTeam[t]);
+  if (!hasAny) {
+    container.innerHTML = '<div style="text-align:center;color:var(--gray-400);padding:20px;font-size:13px;">입력된 데이터가 없습니다</div>';
+    return;
+  }
+
+  // 모드별 값 추출
+  const getValue = (d) => {
+    if (!d) return 0;
+    if (chartMode === 'expected') return +d.expected || 0;
+    if (chartMode === 'in')       return +d.inSales  || 0;
+    if (chartMode === 'consult')  return +d.done      || 0;
+    return 0;
+  };
+
+  const values = TEAMS.map(t => getValue(byTeam[t]));
+  const maxVal = Math.max(...values, 1);
+  const unit   = chartMode === 'consult' ? '건' : '만';
+
+  const bars = TEAMS.map((t, i) => {
+    const val   = values[i];
+    const pct   = Math.max((val / maxVal) * 100, 0);
+    const short = t.split('(')[0];
+    const color = TEAM_COLORS[i];
+    const hasData = !!byTeam[t];
+
+    // 바 안에 숫자 넣을지(길면 밖에)
+    const insideLabel = pct > 25 ? `<span class="chart-bar-val">${val}${unit}</span>` : '';
+    const outsideLabel= pct <= 25 ? `<span class="chart-bar-val-out">${val}${unit}</span>` : '';
+
+    return `<div class="chart-bar-item">
+      <div class="chart-bar-label">${short}</div>
+      <div class="chart-bar-track">
+        <div class="chart-bar-fill" style="width:${hasData ? pct : 0}%;background:${hasData ? color : 'var(--gray-200)'};">
+          ${insideLabel}
+        </div>
+        ${outsideLabel}
+      </div>
+    </div>`;
+  }).join('');
+
+  container.innerHTML = bars;
+}
+
+// ══════════════════════════════════
+// 📝 출력 텍스트
+// ══════════════════════════════════
 function renderOutputV1(byTeam) {
-  let tIn=0,tRem=0,tExp=0,tDone=0,tTmr=0,tDat=0;
-  TEAMS.forEach(t => { if (byTeam[t]) { tIn+=+byTeam[t].inSales; tRem+=+byTeam[t].remainSales; tExp+=+byTeam[t].expected; tDone+=+byTeam[t].done; tTmr+=+byTeam[t].tmr; tDat+=+byTeam[t].dat; }});
+  let tIn=0, tRem=0, tExp=0, tDone=0, tTmr=0, tDat=0;
+  TEAMS.forEach(t => {
+    if (byTeam[t]) {
+      tIn   += +byTeam[t].inSales;
+      tRem  += +byTeam[t].remainSales;
+      tExp  += +byTeam[t].expected;
+      tDone += +byTeam[t].done;
+      tTmr  += +byTeam[t].tmr;
+      tDat  += +byTeam[t].dat;
+    }
+  });
+
   let txt = `컴퓨터강남 (${dashSession})\n\n${fmt(tIn)} / ${fmt(tRem)} / ${fmt(tExp)}\n${tDone}/${tTmr}/${tDat}\n\n세부내용`;
+
   TEAMS.forEach(t => {
     txt += `\n\n${t}\n`;
     const d = byTeam[t];
@@ -422,33 +979,59 @@ function renderOutputV1(byTeam) {
     txt += `${fmt(d.inSales)} / ${fmt(d.remainSales)} / ${fmt(d.expected)}\n${d.done}/${d.tmr}/${d.dat}`;
     if (d.detail) txt += `\n${d.detail}`;
   });
+
   document.getElementById('output-v1').textContent = txt.trim();
 }
 
+// ✅ 버그 수정: tDone/tTmr/tDat 변수 선언 추가
 function renderOutputV2(byTeam) {
-  let tIn=0,tRem=0,tExp=0;
-  TEAMS.forEach(t => { if (byTeam[t]) { tIn+=+byTeam[t].inSales; tRem+=+byTeam[t].remainSales; tExp+=+byTeam[t].expected; }});
+  let tIn=0, tRem=0, tExp=0, tDone=0, tTmr=0, tDat=0;
+  TEAMS.forEach(t => {
+    if (byTeam[t]) {
+      tIn   += +byTeam[t].inSales;
+      tRem  += +byTeam[t].remainSales;
+      tExp  += +byTeam[t].expected;
+      tDone += +byTeam[t].done;
+      tTmr  += +byTeam[t].tmr;
+      tDat  += +byTeam[t].dat;
+    }
+  });
   const r5 = v => Math.round(v / 5) * 5;
   document.getElementById('output-v2').textContent =
     `컴퓨터강남 (${dashSession})\n${fmt(r5(tIn))} / ${fmt(r5(tRem))} / ${fmt(r5(tExp))}\n${tDone}/${tTmr}/${tDat}`;
 }
 
+// ── 팀별 세부 내용 ──
 function renderTeamDetails(byTeam) {
-  const html = TEAMS.filter(t => byTeam[t]).map(t => {
-    const d = byTeam[t];
+  const submitted = TEAMS.filter(t => byTeam[t]);
+
+  if (submitted.length === 0) {
+    document.getElementById('team-detail-list').innerHTML =
+      '<div style="text-align:center;color:var(--gray-400);padding:20px;font-size:13px;">입력된 데이터가 없습니다</div>';
+    return;
+  }
+
+  const html = submitted.map((t, i) => {
+    const d     = byTeam[t];
+    const color = TEAM_COLORS[TEAMS.indexOf(t)];
     return `<div class="team-detail-item">
       <div class="team-detail-header">
-        <div class="team-detail-name">${t}</div>
-        <div class="team-detail-nums">${fmt(d.inSales)}/${fmt(d.remainSales)}/${fmt(d.expected)}만 · ${d.done}/${d.tmr}/${d.dat}건</div>
+        <div class="team-detail-name" style="border-left:3px solid ${color};padding-left:8px;">${t}</div>
+        <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:flex-end;">
+          <div class="team-detail-badge">${fmt(d.expected)}만</div>
+          <div class="team-detail-nums">${fmt(d.inSales)}/${fmt(d.remainSales)}만 · ${d.done}/${d.tmr}/${d.dat}건</div>
+        </div>
       </div>
       ${d.detail ? `<div class="team-detail-content">${escHtml(d.detail)}</div>` : ''}
     </div>`;
   }).join('');
-  document.getElementById('team-detail-list').innerHTML = html ||
-    '<div style="text-align:center;color:var(--gray-400);padding:20px;font-size:13px;">입력된 데이터가 없습니다</div>';
+
+  document.getElementById('team-detail-list').innerHTML = html;
 }
 
-// ── ★ 리셋 모달 ──
+// ══════════════════════════════════
+// 🗑️ 리셋 모달
+// ══════════════════════════════════
 function openResetModal() {
   document.getElementById('reset-session-label').textContent = dashSession;
   document.getElementById('reset-pw').value = '';
@@ -461,11 +1044,13 @@ function closeResetModal() {
 async function confirmReset() {
   const pw = document.getElementById('reset-pw').value;
   if (!pw) { alert('비밀번호를 입력해주세요.'); return; }
+
   const btn = document.getElementById('reset-confirm-btn');
   btn.disabled = true; btn.textContent = '삭제 중...';
+
   try {
-    const url = `${GAS_URL}?action=resetToday&date=${getTodayStr()}&session=${encodeURIComponent(dashSession)}&password=${encodeURIComponent(pw)}`;
-    const res = await fetch(url);
+    const url  = `${GAS_URL}?action=resetToday&date=${getTodayStr()}&session=${encodeURIComponent(dashSession)}&password=${encodeURIComponent(pw)}`;
+    const res  = await fetch(url);
     const json = await res.json();
     if (json.status === 'ok') {
       closeResetModal();
@@ -481,22 +1066,45 @@ async function confirmReset() {
   }
 }
 
-// ── 공통 유틸 ──
-function startAutoRefresh() { stopAutoRefresh(); autoRefreshTimer = setInterval(loadDashboard, 5000); }
-function stopAutoRefresh() { if (autoRefreshTimer) { clearInterval(autoRefreshTimer); autoRefreshTimer = null; } }
-function getTodayStr() { const d = new Date(); return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`; }
+// ══════════════════════════════════
+// 🔧 공통 유틸
+// ══════════════════════════════════
+function startAutoRefresh() {
+  stopAutoRefresh();
+  autoRefreshTimer = setInterval(loadDashboard, 10000);
+}
+function stopAutoRefresh() {
+  if (autoRefreshTimer) { clearInterval(autoRefreshTimer); autoRefreshTimer = null; }
+}
+function getTodayStr() {
+  const d = new Date();
+  return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+}
 function pad(n) { return String(n).padStart(2, '0'); }
 function fmt(v) { return Number(v || 0).toLocaleString(); }
-function escHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function escHtml(s) {
+  return String(s)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;');
+}
+
 async function copyText(boxId, btnId) {
   const text = document.getElementById(boxId).textContent;
-  const btn = document.getElementById(btnId);
-  try { await navigator.clipboard.writeText(text); } catch {
+  const btn  = document.getElementById(btnId);
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch {
     const ta = document.createElement('textarea');
-    ta.value = text; ta.style.cssText = 'position:fixed;opacity:0';
-    document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+    ta.value = text;
+    ta.style.cssText = 'position:fixed;opacity:0';
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
   }
-  btn.textContent = '✅ 복사됨!'; btn.classList.add('copied');
+  btn.textContent = '✅ 복사됨!';
+  btn.classList.add('copied');
   setTimeout(() => { btn.textContent = '복사'; btn.classList.remove('copied'); }, 2000);
 }
 </script>
