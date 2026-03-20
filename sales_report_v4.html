@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>컴퓨터강남 매출보고</title>
+<title>컴퓨터강남 매출</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -491,7 +491,7 @@ body {
 <!-- ── 헤더 ── -->
 <div class="header">
   <div>
-    <div class="header-title">📊 컴퓨터강남 매출보고</div>
+    <div class="header-title">📊 컴퓨터강남 매출</div>
     <div class="header-sub" id="header-sub">날짜 로딩 중...</div>
   </div>
   <div class="tab-group">
@@ -518,7 +518,7 @@ body {
     </div>
 
     <div class="card">
-      <div class="card-title">매출 입력 <span style="font-size:10px;color:var(--gray-400);font-weight:400;text-transform:none;letter-spacing:0;">(단위: 만원)</span></div>
+      <div class="card-title">매출 <span style="font-size:10px;color:var(--gray-400);font-weight:400;text-transform:none;letter-spacing:0;">(단위: 만원)</span></div>
       <div class="form-row">
         <div class="field"><label>들어온매출</label><input type="number" id="f-in" placeholder="0" min="0" inputmode="numeric"></div>
         <div class="field"><label>금일남은매출</label><input type="number" id="f-remain" placeholder="0" min="0" inputmode="numeric"></div>
@@ -543,7 +543,7 @@ body {
       </div>
     </div>
 
-    <button class="btn-submit" id="btn-submit" onclick="submitData()">📤 매출 보고 제출</button>
+    <button class="btn-submit" id="btn-submit" onclick="submitData()">📤 매출 제출</button>
     <p class="edit-notice">수정이 필요하면 <strong>같은 팀·같은 회차</strong>로 다시 제출하면 자동으로 덮어씌워져요.</p>
   </div>
 </div>
@@ -556,7 +556,7 @@ body {
     <div class="card" style="padding:13px 16px;">
       <div class="dash-header">
         <div>
-          <div style="font-weight:800;font-size:15px;">📋 취합 현황</div>
+          <div style="font-weight:800;font-size:15px;">📋 현황</div>
           <div class="refresh-info" id="refresh-info">로딩 중...</div>
         </div>
         <div class="btn-group">
@@ -570,7 +570,7 @@ body {
 
     <!-- 회차 선택 -->
     <div class="card">
-      <div class="card-title">보고 회차</div>
+      <div class="card-title">회차</div>
       <div class="session-selector">
         <button class="session-btn" id="dash-btn-s1" onclick="setDashSession('1차')">1차<span class="session-sub">오전</span></button>
         <button class="session-btn" id="dash-btn-s2" onclick="setDashSession('2차')">2차<span class="session-sub">오후</span></button>
@@ -579,10 +579,10 @@ body {
 
     <!-- 팀별 현황 -->
     <div class="card">
-      <div class="card-title">팀별 입력 현황</div>
+      <div class="card-title">팀별 현황</div>
       <div class="progress-wrap">
         <div class="progress-label">
-          <span>입력 완료</span>
+          <span>완료</span>
           <span id="progress-text">0 / 11</span>
         </div>
         <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
@@ -791,7 +791,7 @@ async function submitData() {
   } catch(e) {
     alert('전송 실패. 네트워크를 확인해주세요.\n' + e.message);
   } finally {
-    btn.disabled = false; btn.textContent = '📤 매출 보고 제출';
+    btn.disabled = false; btn.textContent = '📤 매출 제출';
   }
 }
 
